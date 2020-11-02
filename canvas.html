@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ProgressBar</title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="canvas" width="200" height="200" style="background: black"></canvas>
+<script type="text/javascript">
+var context = document.getElementById('canvas').getContext('2d');
+var auto_load = 0, start=5, diff; /*auto load and at which point to start count*/
+var cw=context.canvas.width/2; /*fixed center*/
+var ch=context.canvas.height/2;
+
+function progressbar(){
+		diff=(auto_load/100)*Math.PI*2;
+		context.clearRect(0,0,400,200);
+		context.beginPath();
+		context.arc(cw,ch,75,0,2*Math.PI,false);
+		context.strokeStyle='grey';
+		context.stroke();
+		context.fillStyle='white';
+		context.strokeStyle='white';
+		context.textAlign='center';
+		context.lineWidth=10;
+		context.font = '18pt times';
+		context.beginPath();
+		context.arc(cw,ch,75,start,diff+start,false);
+		context.stroke();
+		context.fillText(auto_load+'%',cw+2,ch+6);
+		if(auto_load>=68){
+			clearTimeout(progressbar);
+		}
+		auto_load = auto_load+1;
+}
+
+var progressbar=setInterval(progressbar,50);
+</script>
+
+</body>
+</html>
